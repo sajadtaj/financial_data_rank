@@ -40,33 +40,37 @@ app.layout=html.Div(
     ],style={'height':'10%','width':'100%' ,'display': 'inline-block','border':'solid blue'}
     ),
     html.Br(),
-    html.Div(
-        [
-        html.Div(
+    dbc.Container(
+        dbc.Row(
             [
-            dcc.Graph(
-            id='net asset',
-            )
-            ],style={'height':'50%','width':'25%','border':'solid '}
-        ),
-        html.Div(
-            [
-            dcc.Graph(
-            id='Stock&bond asset',
-            )
-        ],style={'height':'50%','width':'75%','border':'solid '}
-    )
-    ],style={'display': 'flex','with':'100%','height':'90%','border':'red '}
+                dbc.Col(html.Div(
+                    [
+                    dcc.Graph(
+                    id='net asset',
+                    )
+                    ]
+                ),style={'height':'100%','width':'25%','border':'solid '}),
+                dbc.Col(html.Div(
+                    [
+                    dcc.Graph(
+                    id='Stock&bond asset',
+                    )
+                ]
+                ),style={'height':'50%','width':'75%','border':'solid '})
+            ],style={'display': 'flex','with':'100%','height':'100%','border':'red '}
+        )#,style={'display': 'flex','with':'100%','height':'100%','border':'red '}
     )
     ],style={'backgroundColor':'#A5D4DE','height':'720px','width':'1080px','border':'solid '}
 )
+
+
+
 
 @app.callback(
     Output('net asset' , 'figure'),
     Input('Dropdown_fund_family' , 'value'),
     Input('number-slider' , 'value')
 )
-
 def display_asset(family_name,number):
 
     net_asset_value=sorted(df[df['fund_family']==family_name]['net_asset_value'])

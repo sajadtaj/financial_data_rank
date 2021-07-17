@@ -58,7 +58,7 @@ app.layout=html.Div(
                 ]
                 ),style={'height':'50%','width':'75%','border':'solid '})
             ],style={'display': 'flex','with':'100%','height':'100%','border':'red '}
-        )#,style={'display': 'flex','with':'100%','height':'100%','border':'red '}
+        ),style={'display': 'flex','with':'100%','height':'100%','border':'red '}
     )
     ],style={'backgroundColor':'#A5D4DE','height':'720px','width':'1080px','border':'solid '}
 )

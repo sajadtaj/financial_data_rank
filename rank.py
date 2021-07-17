@@ -37,7 +37,7 @@ app.layout=html.Div(
         html.Div(Dropdown_fund_family,style={'height':'50%','width':'30%','display': 'inline-block', 'margin':'8px'}),
         html.Div(Dropdown_fund_Port,style={'height':'50%','width':'30%' ,'display': 'inline-block' , 'margin':'8px'}),
         html.Div(number_slid,style={'height':'50%','width':'30%' ,'display': 'inline-block' , 'margin':'8px'}),
-    ],style={'height':'10%','width':'100%' ,'display': 'inline-block','border':'solid blue'}
+    ],style={'height':'10%','width':'100%' ,'display': 'inline-block','border':'solid #C4CDC1'}
     ),
     html.Br(),
     dbc.Container(
@@ -49,16 +49,16 @@ app.layout=html.Div(
                     id='net asset',
                     )
                     ]
-                ),style={'height':'100%','width':'25%','border':'solid '}),
+                ),style={'height':'100%'}),
                 dbc.Col(html.Div(
                     [
                     dcc.Graph(
                     id='Stock&bond asset',
                     )
                 ]
-                ),style={'height':'50%','width':'75%','border':'solid '})
+                ),style={'height':'50%'})
             ],style={'display': 'flex','with':'100%','height':'100%','border':'red '}
-        ),style={'display': 'flex','with':'100%','height':'100%','border':'red '}
+        ),style={'backgroundColor':'#6D9197','display': 'flex','with':'100%','height':'100%','border':'red '}
     )
     ],style={'backgroundColor':'#A5D4DE','height':'720px','width':'1080px','border':'solid '}
 )
@@ -84,10 +84,17 @@ def display_asset(family_name,number):
         x=net_asset_value,
         y=fund_name,
         marker_color='#D2F6FC',
+
+
         orientation='h',
     ))
-    fig.layout.plot_bgcolor = '#F3E2C8'
-    fig.layout.paper_bgcolor = '#F3E2C8'
+    fig.update_layout(
+    autosize=False,
+    width=300,
+    height=600,
+    )
+    fig.layout.plot_bgcolor = '#6D9197'
+    fig.layout.paper_bgcolor = '#6D9197'
     return fig
 
 @app.callback(
@@ -97,6 +104,7 @@ def display_asset(family_name,number):
 )
 def display_portfolio(family_name,number):
 
+    net_asset_value=sorted(df[df['fund_family']==family_name]['net_asset_value'])
     fund_name      =df[df['fund_family']==family_name]['fund_symbol'].head(number)
     asset_cash     =df[df['fund_family']==family_name]['asset_cash']
     asset_stocks   =df[df['fund_family']==family_name]['asset_stocks']
@@ -108,18 +116,23 @@ def display_portfolio(family_name,number):
     x=fund_name,
     y=asset_stocks,
     name='Asset Stocks',
-    marker_color='#D8E3E9'
+    marker_color='#99AEAD'
     ))
 
     fig.add_trace(go.Bar(
     x=fund_name,
     y=asset_bonds,
     name='Asset Bonds',
-    marker_color='#F3F4F9'
+    marker_color='#C4CDC1'
     ))
+    fig.update_layout(
+    autosize=False,
+    width=600,
+    height=400,
+    )
 
-    fig.layout.plot_bgcolor = '#F3E2C8'
-    fig.layout.paper_bgcolor = '#F3E2C8'
+    fig.layout.plot_bgcolor = '#6D9197'
+    fig.layout.paper_bgcolor = '#6D9197'
     return fig
 
 if __name__ == '__main__':
